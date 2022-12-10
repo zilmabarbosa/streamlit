@@ -7,9 +7,9 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# Setting page configuration
+# Setting page configurations
 
-st.set_page_config(layout = 'wide')
+st.set_page_config(layout = 'wide', page_icon = '📙')
 
 def load_lottieurl(url: str):
     r = requests.get(url)
@@ -114,8 +114,8 @@ fig_br = px.histogram(bookrec, x = 'book_rating', title = "<b>Rating Distributio
 fig_br.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating</b>',
                       yaxis_title = '<b>Count</b>', xaxis = dict(tickmode = 'linear'), bargap = 0.1)
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(['<b>Age Distribution</b>', '<b>Top 10 Locations</b>', '<b>Top 10 Rated Books</b>', '<b>Top 10 Rated Authors</b>',
-                                        '<b>Rating Distribution</b>'])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(['Age Distribution', 'Top 10 Locations', 'Top 10 Rated Books', 'Top 10 Rated Authors',
+                                        'Rating Distribution'])
 
 with tab1:
     st.header('Age Distribution')
