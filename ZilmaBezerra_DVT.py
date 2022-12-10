@@ -47,8 +47,7 @@ custom_template = {'layout':
 
 # Plotting the distribution of 'age'
 
-fig_age = px.histogram(bookrec, x = 'age', title = "<b>Users' Age Distribution</b>", color_discrete_sequence = ['indianred'],
-                       opacity = 0.8)
+fig_age = px.histogram(bookrec, x = 'age', title = "<b>Users' Age Distribution</b>", color_discrete_sequence = ['#FF7F50'])
 
 fig_age.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Age</b>',
                       yaxis_title = '<b>Count</b>')
@@ -59,8 +58,7 @@ fig_lmr = px.bar(bookrec.value_counts('location', ascending = False).head(10),
                  x = bookrec.value_counts('location', ascending = False).head(10),
                  y = bookrec.value_counts('location', ascending = False).head(10).index,
                  title = "<b>Top 10 Locations with More Ratings Published</b>",
-                 color_discrete_sequence = ['indianred'],
-                 opacity = 0.8)
+                 color_discrete_sequence = ['#FF7F50'])
 
 fig_lmr.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating Count</b>',
                       yaxis_title = '<b>Location</b>')
@@ -73,8 +71,7 @@ fig_mrb = px.bar(bookrec.value_counts('book_title', ascending = False).head(10),
                  x = bookrec.value_counts('book_title', ascending = False).head(10),
                  y = bookrec.value_counts('book_title', ascending = False).head(10).index,
                  title = "<b>Top 10 Most Rated Books</b>",
-                 color_discrete_sequence = ['indianred'],
-                 opacity = 0.8)
+                 color_discrete_sequence = ['#FF7F50'])
 
 fig_mrb.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating count</b>',
                       yaxis_title = '<b>Books</b>')
@@ -87,8 +84,7 @@ fig_mra = px.bar(bookrec.value_counts('book_author', ascending = False).head(10)
                  x = bookrec.value_counts('book_author', ascending = False).head(10),
                  y = bookrec.value_counts('book_author', ascending = False).head(10).index,
                  title = "<b>Top 10 Most Rated Authors</b>",
-                 color_discrete_sequence = ['indianred'],
-                 opacity = 0.8)
+                 color_discrete_sequence = ['#FF7F50'])
 
 fig_mra.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating Count</b>',
                       yaxis_title = '<b>Authors</b>')
