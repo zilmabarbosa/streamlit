@@ -21,7 +21,7 @@ file_url = 'https://assets4.lottiefiles.com/temp/lf20_aKAfIn.json'
 lottie_book = load_lottieurl(file_url)
 st_lottie(lottie_book, speed = 1, height = 200, key = 'initial')
 
-st.title('<style> Analysing Book Ratings Dataset {text-align: center} </style>', unsafe_allow_html = True)
+st.title('<style> Analysing Book Ratings Dataset {text-align: center} </style>')
 st.subheader('A Web App by [Zilma Bezerra](https://github.com/zilmabezerra)')
 
 '''
