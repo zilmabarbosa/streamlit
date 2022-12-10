@@ -98,7 +98,7 @@ fig_mra.update_yaxes(automargin = True, title_standoff = 10)
 # Plotting the distribution of 'book_rating'
 
 fig_br = px.histogram(bookrec, x = 'book_rating', title = "<b>Rating Distribution</b>",
-                       color_discrete_sequence = ['indianred'],
+                       color_discrete_sequence = ['#FFAC1C'],
                        opacity = 0.8)
 
 fig_br.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating</b>',
