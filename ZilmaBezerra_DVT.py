@@ -23,10 +23,10 @@ st_lottie(lottie_book, speed = 1, height = 200, key = 'initial')
 
 st.markdown("<h1 style = 'text-align: center;'> Analysing Book Ratings Dataset </h1>", unsafe_allow_html = True)
 st.markdown("<h3 style = 'text-align: center;'> A Web App by <b><a href = 'https://github.com/zilmabezerra'> Zilma Bezerra </a></b></h3>", unsafe_allow_html = True)
-#st.subheader('A Web App by [Zilma Bezerra](https://github.com/zilmabezerra)')
 
 '''
-Welcome to Zilma's Book Analysis App. This app analyses the merged dataset called 'bookrec', in order to develop a recommendation system. The merged dataset contains information on the three original datasets:
+Welcome to Zilma's Book Analysis App. This app analyses the merged dataset called 'bookrec', in order to develop a recommendation system.
+The merged dataset contains information on the three original datasets:
 * **BX-Books**, which contains data about books, such as ISBN, title, author, year of publication, publisher and image links;
 * **BX-Users**, which has data about the users, such as ID, location and age;
 * **BX-Book-Ratings**, which contains information on user ID, ISBN and rating.
@@ -114,30 +114,31 @@ fig_br = px.histogram(bookrec, x = 'book_rating', title = "<b>Rating Distributio
 fig_br.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating</b>',
                       yaxis_title = '<b>Count</b>', xaxis = dict(tickmode = 'linear'), bargap = 0.1)
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(['Age Distribution', 'Top 10 Locations', 'Most Rated Books', 'Most Rated Authors', 'Rating Distribution'])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(['<b>Age Distribution</b>', '<b>Top 10 Locations</b>', '<b>Top 10 Rated Books</b>', '<b>Top 10 Rated Authors</b>',
+                                        '<b>Rating Distribution</b>'])
 
 with tab1:
-    st.header('<b>Age Distribution</b>')
+    st.header('Age Distribution')
     st.write(f'In this plot, it is possible to observe the presence of outliers. The ages around and over 100 are most likely erroneous data inputs. These errors may have been made by accident or on purpose. For instance, some users may not want to disclose their personal information.')
     st.plotly_chart(fig_age)
 
 with tab2:
-    st.header('<b>Top 10 Locations</b>')
+    st.header('Top 10 Locations')
     st.write(f'Here, it can be seen that the locations with the highest number of individual ratings for books are either in the USA or Canada.')
     st.plotly_chart(fig_lmr)
 
 with tab3:
-    st.header('<b>Most Rated Books</b>')
+    st.header('Top 10 Rated Books')
     st.write(f'This third graph shows the top 10 books with the highest number of individual ratings. It is possible to see that <b>Wild Animus</b>, the top rated, has more than double the number of ratings than the second position, <b>The Lovely Bones: A Novel<b/>.')
     st.plotly_chart(fig_mrb)
 
 with tab4:
-    st.header('<b>Most Rated Authors</b>')
+    st.header('Top 10 Rated Authors')
     st.write(f'In this case, the plot shows the top 10 authors with the highest number of individual ratings, being <b>Stephen King</b>, the top rated.')
     st.plotly_chart(fig_mra)
 
 with tab5:
-    st.header('<b>Rating Distribution</b>')
+    st.header('Rating Distribution')
     percentage = round(bookrec['book_rating'][bookrec['book_rating'] == 0].shape[0] / bookrec['book_rating'].shape[0], 2)
     st.write(f'The last histogram is about the rating distribution. Here, it is possible to observe that nearly half a million of the ratings are zero. This number represents {percentage} of the dataset.')
     st.plotly_chart(fig_br)
