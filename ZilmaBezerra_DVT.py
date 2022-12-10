@@ -25,8 +25,8 @@ st.markdown("<h1 style = 'text-align: center;'> Analysing Book Ratings Dataset <
 st.markdown("<h3 style = 'text-align: center;'> A Web App by <b><a href = 'https://github.com/zilmabezerra'> Zilma Bezerra </a></b></h3>", unsafe_allow_html = True)
 
 '''
-Welcome to Zilma's Book Analysis App. This app analyses the merged dataset called 'bookrec', in order to develop a recommendation system.
-The merged dataset contains information on the three original datasets:
+Welcome to Zilma's Book Analysis App. This app analyses a dataset called "bookrec", in order to develop a recommendation system.
+The dataset merges information of the three initial datasets provided:
 * **BX-Books**, which contains data about books, such as ISBN, title, author, year of publication, publisher and image links;
 * **BX-Users**, which has data about the users, such as ID, location and age;
 * **BX-Book-Ratings**, which contains information on user ID, ISBN and rating.
