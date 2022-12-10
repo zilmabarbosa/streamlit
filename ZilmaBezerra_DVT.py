@@ -11,14 +11,14 @@ st.title('Analysing Book Ratings Dataset')
 st.subheader('A Web App by [Zilma Bezerra](https://github.com/zilmabezerra)')
 
 '''
-Welcome to Zilma's Book Analysis App. This app analyses the merged dataset called 'bookrec', in order to develop a recommendation system. The merged dataset contains information on the three original datasets:
+<font size = '14'>Welcome to Zilma's Book Analysis App. This app analyses the merged dataset called 'bookrec', in order to develop a recommendation system. The merged dataset contains information on the three original datasets:
 * **BX-Books**, which contains data about books, such as ISBN, title, author, year of publication, publisher and image links;
 * **BX-Users**, which has data about the users, such as ID, location and age;
 * **BX-Book-Ratings**, which contains information on user ID, ISBN and rating.
 
 The analysis of this raw data will guide further steps in data preparation and modelling.
 
-*Please, scroll down and navigate through the tabs below to visualise the graphs.*
+*Please, scroll down and navigate through the tabs below to visualise the graphs.*</font>
 '''
 
 # Reading the dataset
@@ -94,7 +94,7 @@ fig_mra.update_yaxes(automargin = True, title_standoff = 10)
 # Plotting the distribution of 'book_rating'
 
 fig_br = px.histogram(bookrec, x = 'book_rating', title = "<b>Rating Distribution</b>",
-                       color_discrete_sequence = ['#FFAC1C'])
+                       color_discrete_sequence = ['#FF7F50'])
 
 fig_br.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating</b>',
                       yaxis_title = '<b>Count</b>', xaxis = dict(tickmode = 'linear'), bargap = 0.1)
