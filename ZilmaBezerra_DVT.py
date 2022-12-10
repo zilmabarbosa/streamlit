@@ -22,15 +22,7 @@ lottie_book = load_lottieurl(file_url)
 st_lottie(lottie_book, speed = 1, height = 200, key = 'initial')
 
 # st.title('<style> Analysing Book Ratings Dataset {text-align: center} </style>')
-title_alignment =
-"""
-<style>
-Analysing Book Ratings Dataset {
-  text-align: center
-}
-</style>
-"""
-st.markdown(title_alignment, unsafe_allow_html = True)
+st.markdown("<h1 style = 'text-align: center;'> Analysing Book Ratings Dataset </h1>", unsafe_allow_html = True)
 st.subheader('A Web App by [Zilma Bezerra](https://github.com/zilmabezerra)')
 
 '''
