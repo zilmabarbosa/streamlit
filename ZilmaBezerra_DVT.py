@@ -1,11 +1,25 @@
 # Importing the libraries 
 
 import streamlit as st
+from streamlit_lottie import st_lottie
+import requests
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
+# Setting page configuration
+
 st.set_page_config(layout = 'wide')
+
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+file_url = 'https://assets4.lottiefiles.com/temp/lf20_aKAfIn.json'
+lottie_book = load_lottieurl(file_url)
+st_lottie(lottie_book, speed = 1, height = 200, key = 'initial')
 
 st.title('Analysing Book Ratings Dataset')
 st.subheader('A Web App by [Zilma Bezerra](https://github.com/zilmabezerra)')
@@ -102,27 +116,27 @@ fig_br.update_layout(height = 600, width = 1000, template = custom_template, xax
 tab1, tab2, tab3, tab4, tab5 = st.tabs(['Age Distribution', 'Top 10 Locations', 'Most Rated Books', 'Most Rated Authors', 'Rating Distribution'])
 
 with tab1:
-    st.header('Age Distribution')
+    st.header('<b>Age Distribution</b>')
     st.write(f'In this plot, it is possible to observe the presence of outliers. The ages around and over 100 are most likely erroneous data inputs. These errors may have been made by accident or on purpose. For instance, some users may not want to disclose their personal information.')
     st.plotly_chart(fig_age)
 
 with tab2:
-    st.header('Top 10 Locations')
+    st.header('<b>Top 10 Locations</b>')
     st.write(f'Here, it can be seen that the locations with the highest number of individual ratings for books are either in the USA or Canada.')
     st.plotly_chart(fig_lmr)
 
 with tab3:
-    st.header('Most Rated Books')
+    st.header('<b>Most Rated Books</b>')
     st.write(f'This third graph shows the top 10 books with the highest number of individual ratings. It is possible to see that <b>Wild Animus</b>, the top rated, has more than double the number of ratings than the second position, <b>The Lovely Bones: A Novel<b/>.')
     st.plotly_chart(fig_mrb)
 
 with tab4:
-    st.header('Most Rated Authors')
+    st.header('<b>Most Rated Authors</b>')
     st.write(f'In this case, the plot shows the top 10 authors with the highest number of individual ratings, being <b>Stephen King</b>, the top rated.')
     st.plotly_chart(fig_mra)
 
 with tab5:
-    st.header('Rating Distribution')
+    st.header('<b>Rating Distribution</b>')
     percentage = round(bookrec['book_rating'][bookrec['book_rating'] == 0].shape[0] / bookrec['book_rating'].shape[0], 2)
     st.write(f'The last histogram is about the rating distribution. Here, it is possible to observe that nearly half a million of the ratings are zero. This number represents {percentage} of the dataset.')
     st.plotly_chart(fig_br)
