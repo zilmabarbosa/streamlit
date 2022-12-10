@@ -21,18 +21,18 @@ file_url = 'https://assets4.lottiefiles.com/temp/lf20_aKAfIn.json'
 lottie_book = load_lottieurl(file_url)
 st_lottie(lottie_book, speed = 1, height = 200, key = 'initial')
 
-st.title('Analysing Book Ratings Dataset')
+st.title('<style> Analysing Book Ratings Dataset {text-align: center} </style>', unsafe_allow_html = True)
 st.subheader('A Web App by [Zilma Bezerra](https://github.com/zilmabezerra)')
 
 '''
-<font size = '14'>Welcome to Zilma's Book Analysis App. This app analyses the merged dataset called 'bookrec', in order to develop a recommendation system. The merged dataset contains information on the three original datasets:
+Welcome to Zilma's Book Analysis App. This app analyses the merged dataset called 'bookrec', in order to develop a recommendation system. The merged dataset contains information on the three original datasets:
 * **BX-Books**, which contains data about books, such as ISBN, title, author, year of publication, publisher and image links;
 * **BX-Users**, which has data about the users, such as ID, location and age;
 * **BX-Book-Ratings**, which contains information on user ID, ISBN and rating.
 
 The analysis of this raw data will guide further steps in data preparation and modelling.
 
-*Please, scroll down and navigate through the tabs below to visualise the graphs.*</font>
+*Please, scroll down and navigate through the tabs below to visualise the graphs.*
 '''
 
 # Reading the dataset
