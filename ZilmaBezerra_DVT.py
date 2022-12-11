@@ -136,14 +136,12 @@ def display_country_filter(df):
     country_list = [element.upper() for element in country_list]
     country_list.sort()
     country = st.selectbox('Country', country_list)
-    st.header(f'{country}')
     return country
 
 def display_rating_filter(df):
-    rating_list = list(df['rating'].unique())
+    rating_list = list(df['book_rating'].unique())
     rating_list.sort()
     rating = st.selectbox('Rating', rating_list)
-    st.header(f'{rating}')
     return rating
 
 # Designing the popup for the map
