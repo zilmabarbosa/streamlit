@@ -128,40 +128,11 @@ fig_br.update_layout(height = 600, width = 1000, template = custom_template, xax
 
 bookrec_65 = pd.read_csv('bookrec_65.csv')
 
-# Creating the widget for selection of number of observations
-
-style = {'description_width': 'initial'}
-
-limit = widgets.IntSlider(value = 100, min = 0, max = 1000, step = 10, description = 'Number of ratings:', disabled = False,
-                          style = style, layout = Layout(width = '95%'), display = 'flex')
-
-def update_df_length(limit):
-    
-    df = bookrec_65.copy()
-    df = df.iloc[0:limit, :]
-    
-# Creating the widget for country selection
-
-df = bookrec_65.copy()
-unique_countries = df.country.sort_values().unique()
-unique_countries = [element.upper() for element in unique_countries]
-
-country = widgets.SelectMultiple(options = unique_countries, value = ['USA'], description = 'Country',
-                                 disabled = False, layout = Layout(width = '45%', height = '80px', display = 'flex'))
-
-
-
-# Creating the widget for rating selection
-
-unique_rating = df.book_rating.sort_values().unique()
-
-rating = widgets.SelectMultiple(options = unique_rating.tolist(), value = [10], description = 'Rating', disabled = False,
-                                style = style, layout = Layout(width = '45%', height = '80px', display = 'flex'))
-
 # Creating streamlit controls
 
 def display_country_filter(df):
     country_list = list(df['country'].unique())
+    country_list = [element.upper() for element in unique_countries]
     country_list.sort()
     country = st.selectbox('Country', country_list)
     st.header(f'{country}')
@@ -172,7 +143,7 @@ def display_rating_filter(df):
     rating_list.sort()
     rating = st.sidebar.selectbox('Rating', rating_list)
     st.header(f'{rating}')
-    return st.selectbox('Rating', rating_list)
+    return rating
 
 # Designing the popup for the map
 
@@ -220,7 +191,7 @@ def updated_map(country, rating):
     df = bookrec_65.copy()
     df = df.sample(1000) # getting a random sample
     df_country = df.loc[df['country'] == country]
-    df_rating = df.loc[df['book_rating'] == rating]
+    df_rating = df_country.loc[df_country['book_rating'] == rating]
     
     # Designing the map
 
@@ -290,7 +261,8 @@ with tab6:
     col1, col2 = st.columns(2)
     with col1:
         country = display_country_filter(df)
-        rating = display_country_filter(df)
+        rating = display_rating_filter(df)
     with col2:
         st_map = updated_map(df, country, rating)
+        
    
