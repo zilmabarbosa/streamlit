@@ -163,7 +163,7 @@ rating = widgets.SelectMultiple(options = unique_rating.tolist(), value = [10], 
 def display_country_filter(df):
     country_list = list(df['country'].unique())
     country_list.sort()
-    country = st.selectbox('Country', country_list, country_index))
+    country = st.selectbox('Country', country_list, country_index)
     st.header(f'{country}')
     return country
 
