@@ -142,7 +142,7 @@ def display_country_filter(df):
 def display_rating_filter(df):
     rating_list = list(df['rating'].unique())
     rating_list.sort()
-    rating = st.sidebar.selectbox('Rating', rating_list)
+    rating = st.selectbox('Rating', rating_list)
     st.header(f'{rating}')
     return rating
 
@@ -262,8 +262,9 @@ with tab6:
     col1, col2 = st.columns(2)
     with col1:
         country = display_country_filter(df)
-        rating = display_rating_filter(df)
     with col2:
+        rating = display_rating_filter(df)
+    with col1, col2:
         st_map = updated_map(df, country, rating)
         
    
