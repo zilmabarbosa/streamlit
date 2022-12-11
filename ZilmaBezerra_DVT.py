@@ -163,16 +163,16 @@ rating = widgets.SelectMultiple(options = unique_rating.tolist(), value = [10], 
 def display_country_filter(df):
     country_list = list(df['country'].unique())
     country_list.sort()
-    country = st.selectbox('Country', country_list, country_index)
+    country = st.selectbox('Country', country_list)
     st.header(f'{country}')
     return country
 
 def display_rating_filter(df):
     rating_list = list(df['rating'].unique())
     rating_list.sort()
-    rating = st.sidebar.selectbox('Rating', rating_list, len(rating_list)-1)
+    rating = st.sidebar.selectbox('Rating', rating_list)
     st.header(f'{rating}')
-    return st.selectbox('Rating', rating_list, rating_index)
+    return st.selectbox('Rating', rating_list)
 
 # Designing the popup for the map
 
@@ -280,8 +280,8 @@ with tab4:
 
 with tab5:
     st.header('Rating Distribution')
-    percentage = round(bookrec['book_rating'][bookrec['book_rating'] == 0].shape[0] / bookrec['book_rating'].shape[0], 2)
-    st.write(f'The last histogram is about the rating distribution. Here, it is possible to observe that nearly **half a million** of the ratings are **zero**. This number represents {percentage} of the dataset.')
+    percentage = round(bookrec['book_rating'][bookrec['book_rating'] == 0].shape[0] / bookrec['book_rating'].shape[0], 2)*100
+    st.write(f'The last histogram is about the rating distribution. Here, it is possible to observe that nearly **half a million** of the ratings are **zero**. This number represents {percentage}% of the dataset.')
     st.plotly_chart(fig_br)
     
 with tab6:
