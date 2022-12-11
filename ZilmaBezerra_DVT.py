@@ -287,11 +287,10 @@ with tab5:
 with tab6:
     st.header('Interactive Map')
     st.write(f'The last histogram is about the rating distribution. Here, it is possible to observe that nearly **half a million** of the ratings are **zero**. This number represents {percentage} of the dataset.')
-    country = display_country_filter(df)
-    country = updated_map(df, country, rating)
-    rating = display_country_filter(df)
-    
-    
-
-
-
+    col1, col2 = st.columns(2)
+    with col1:
+        country = display_country_filter(df)
+        rating = display_country_filter(df)
+    with col2:
+        st_map = updated_map(df, country, rating)
+   
