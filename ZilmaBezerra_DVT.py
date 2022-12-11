@@ -263,6 +263,6 @@ with tab6:
     with col2:
         rating = display_rating_filter(df)
     with col1, col2:
-        st_map = updated_map(df, country, rating)
+        st_map = updated_map(country, rating)
         
    
