@@ -247,7 +247,7 @@ def updated_map(country, rating):
                       icon = folium.Icon(icon = 'book', prefix = 'fa', icon_color = 'white', color = icon_color)).add_to(point)
     
     # Showing map
-     st_map = st_folium(book_map, width = 700, height = 450)
+    st_map = st_folium(book_map, width = 700, height = 450)
         
 #
 #
