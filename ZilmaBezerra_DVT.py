@@ -6,6 +6,12 @@ import requests
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+import folium
+from folium import plugins
+import ipywidgets as widgets
+from ipywidgets import Layout, interact, interactive, VBox, HBox
+
 
 # Setting page configurations
 
@@ -114,8 +120,143 @@ fig_br = px.histogram(bookrec, x = 'book_rating', title = "<b>Rating Distributio
 fig_br.update_layout(height = 600, width = 1000, template = custom_template, xaxis_title = '<b>Rating</b>',
                       yaxis_title = '<b>Count</b>', xaxis = dict(tickmode = 'linear'), bargap = 0.1)
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(['**Age Distribution**', '**Top 10 Locations**', '**Top 10 Rated Books**', '**Top 10 Rated Authors**',
-                                        '**Rating Distribution**'])
+#
+#
+#
+
+# Reading the subdataset: age range 55-75 and rating range 6-10
+
+bookrec_65 = pd.read_csv('bookrec_65.csv')
+
+# Creating the widget for selection of number of observations
+
+style = {'description_width': 'initial'}
+
+limit = widgets.IntSlider(value = 100, min = 0, max = 1000, step = 10, description = 'Number of ratings:', disabled = False,
+                          style = style, layout = Layout(width = '95%'), display = 'flex')
+
+def update_df_length(limit):
+    
+    df = bookrec_65.copy()
+    df = df.iloc[0:limit, :]
+    
+# Creating the widget for country selection
+
+df = bookrec_65.copy()
+unique_countries = df.country.sort_values().unique()
+unique_countries = [element.upper() for element in unique_countries]
+
+country = widgets.SelectMultiple(options = unique_countries, value = ['USA'], description = 'Country',
+                                 disabled = False, layout = Layout(width = '45%', height = '80px', display = 'flex'))
+
+
+
+# Creating the widget for rating selection
+
+unique_rating = df.book_rating.sort_values().unique()
+
+rating = widgets.SelectMultiple(options = unique_rating.tolist(), value = [10], description = 'Rating', disabled = False,
+                                style = style, layout = Layout(width = '45%', height = '80px', display = 'flex'))
+
+# Creating streamlit controls
+
+def display_country_filter(df):
+    country_list = list(df['country'].unique())
+    country_list.sort()
+    country = st.selectbox('Country', country_list, country_index))
+    st.header(f'{country}')
+    return country
+
+def display_rating_filter(df):
+    rating_list = list(df['rating'].unique())
+    rating_list.sort()
+    rating = st.sidebar.selectbox('Rating', rating_list, len(rating_list)-1)
+    st.header(f'{rating}')
+    return st.selectbox('Rating', rating_list, rating_index)
+
+# Designing the popup for the map
+
+def popup_html(row):
+    
+    i = row
+    df = bookrec_65.copy()
+    
+    country_html = str(df['country'].iloc[i]).title() 
+    book_html = df['book_title'].iloc[i]
+    rating_html = df['book_rating'].iloc[i]
+    cover_html = df['image_url_l'].iloc[i] 
+
+    left_col_color = '#404040'
+    right_col_color = '#D3D3D3'
+
+    html = """
+    <!DOCTYPE html>
+    <html>
+    <center><img src = \"""" + cover_html + """\" alt = "logo" width=100 ></center>
+    <center> <table style = "height: 150px; width: 250px;">
+    <tbody>
+    <tr>
+    <td style="background-color: """ + left_col_color + """;"><span style="color: #ffffff;"> Country </span></td>
+    <td style="width: 200px;background-color: """ + right_col_color + """;">{}</td>""".format(country_html) + """</td>
+    </tr>
+    <tr>
+    <td style="background-color: """ + left_col_color + """;"><span style="color: #ffffff;"> Book </span></td>
+    <td style="width: 200px;background-color: """ + right_col_color + """;">{}</td>""".format(book_html) + """
+    </tr>
+    <tr>
+    <td style="background-color: """ + left_col_color + """;"><span style="color: #ffffff;"> Rating </span></td>
+    <td style="width: 200px;background-color: """ + right_col_color + """;">{}</td>""".format(rating_html) + """
+    </tr>
+    </tbody>
+    </table></center>
+    </html>
+    """
+    return html
+
+# Creating the function for the map
+
+def updated_map(country, rating):
+    
+    df = bookrec_65.copy()
+    df = df.sample(1000) # getting a random sample
+    df_country = df.loc[df['country'] == country]
+    df_rating = df.loc[df['book_rating'] == rating]
+    
+    # Designing the map
+
+    # Creating the map base
+    book_map = folium.Map(location = [39.3260685, -4.8379791], zoom_start = 1.5)
+
+    # Clustering datapoints
+    point = plugins.MarkerCluster().add_to(book_map)
+
+    # Set up the colours based rating
+    purpose_colour = {6:'gray', 7:'gray', 8:'gray', 9:'gray', 10:'orange'}
+
+    # Looping through each row in the dataframe
+    for i, row in df_rating.iterrows():
+    
+        try:
+            icon_color = purpose_colour[row['book_rating']]
+        except:
+            icon_color = 'gray'
+    
+        # Add each row to the map
+        folium.Marker(location = [row['lat'], row['long']],
+                      popup = folium.Popup(folium.Html(popup_html(i), script = True)), 
+                      icon = folium.Icon(icon = 'book', prefix = 'fa', icon_color = 'white', color = icon_color)).add_to(point)
+    
+    # Showing map
+     st_map = st_folium(book_map, width = 700, height = 450)
+        
+#
+#
+#
+
+# Creating the streamlit layout
+
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(['**Age Distribution**', '**Top 10 Locations**', '**Top 10 Rated Books**', '**Top 10 Rated Authors**',
+                                              '**Rating Distribution**', '**Interactive Map**'])
 
 with tab1:
     st.header('Age Distribution')
@@ -142,3 +283,15 @@ with tab5:
     percentage = round(bookrec['book_rating'][bookrec['book_rating'] == 0].shape[0] / bookrec['book_rating'].shape[0], 2)
     st.write(f'The last histogram is about the rating distribution. Here, it is possible to observe that nearly **half a million** of the ratings are **zero**. This number represents {percentage} of the dataset.')
     st.plotly_chart(fig_br)
+    
+with tab6:
+    st.header('Interactive Map')
+    st.write(f'The last histogram is about the rating distribution. Here, it is possible to observe that nearly **half a million** of the ratings are **zero**. This number represents {percentage} of the dataset.')
+    country = display_country_filter(df)
+    country = updated_map(df, country, rating)
+    rating = display_country_filter(df)
+    
+    
+
+
+
