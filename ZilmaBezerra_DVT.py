@@ -127,6 +127,7 @@ fig_br.update_layout(height = 600, width = 1000, template = custom_template, xax
 # Reading the subdataset: age range 55-75 and rating range 6-10
 
 bookrec_65 = pd.read_csv('bookrec_65.csv')
+df = bookrec_65.copy()
 
 # Creating streamlit controls
 
