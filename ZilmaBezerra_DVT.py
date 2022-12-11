@@ -23,7 +23,7 @@ file_url = 'https://assets4.lottiefiles.com/temp/lf20_aKAfIn.json'
 lottie_book = load_lottieurl(file_url)
 st_lottie(lottie_book, speed = 1, height = 100, key = 'initial')
 
-st.markdown("<h1 style = 'text-align: center;'> Analysing Book Ratings Dataset </h1>", unsafe_allow_html = True)
+st.markdown("<h1 style = 'text-align: center;'> Analysing Book Rating Dataset </h1>", unsafe_allow_html = True)
 st.markdown("<h3 style = 'text-align: center;'> A Web App by <b><a href = 'https://github.com/zilmabezerra'> Zilma Bezerra </a></b></h3>", unsafe_allow_html = True)
 
 '''
