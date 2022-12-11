@@ -133,7 +133,7 @@ df = bookrec_65.copy()
 
 def display_country_filter(df):
     country_list = list(df['country'].unique())
-    country_list = [element.upper() for element in unique_countries]
+    country_list = [element.upper() for element in country_list]
     country_list.sort()
     country = st.selectbox('Country', country_list)
     st.header(f'{country}')
